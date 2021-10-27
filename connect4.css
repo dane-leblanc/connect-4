@@ -1,23 +1,43 @@
 /* game board table */
 
 #board td {
+  align-items: center;
   width: 50px;
   height: 50px;
   border: solid 1px #666;
 }
 
+#board {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* pieces are div within game table cells: draw as colored circles */
 
 .piece {
-  /* make into circles */
   margin: 5px;
   width: 80%;
   height: 80%;
   border-radius: 50%;
   background-color: red;
+  animation-duration: 600ms;
+  animation-name: dropin;
+  animation-timing-function: ease-in;
 }
 
-/* TODO: make pieces red/blue,  depending on player 1/2 piece */
+@keyframes dropin {
+  from {
+    transform: translateY(-350px);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+/* when plyer 2 places, include this class */
+.p2 {
+  background-color: blue;
+}
 
 /* column-top is table row of clickable areas for each column */
 
@@ -27,4 +47,20 @@
 
 #column-top td:hover {
   background-color: gold;
+}
+
+.p1Color {
+  color: red;
+}
+
+.p2Color {
+  color: blue;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
 }
