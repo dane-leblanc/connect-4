@@ -166,7 +166,12 @@ function checkForWin() {
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
-      //for every cell, take it and the three cells to its right and put them in _win function. (some may not be valid cells and beyond the dimensions of the board. For example starting with [5,5] would include [5,6],[5,7],[5,8], the last of which would not be on the board and would not pass the cells.every condition no matter what.)
+      /** for every cell, take it and the three cells to its right
+       * and put them in _win function. (some may not be valid cells
+       * and beyond the dimensions of the board. For example starting
+       * with [5,5] would include [5,6],[5,7],[5,8], the last of
+       * which would not be on the board and would not pass the
+       * cells.every condition no matter what.) */
       let horiz = [
         [y, x],
         [y, x + 1],
@@ -194,7 +199,8 @@ function checkForWin() {
         [y + 2, x - 2],
         [y + 3, x - 3],
       ];
-      //If we have four in a row in any orientation, within the board dimensions, and all belonging to the same player, checkForWin() returns true.
+      /**If we have four in a row in any orientation, within the board dimensions,
+       * and all belonging to the same player, checkForWin() returns true.*/
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
