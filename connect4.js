@@ -12,10 +12,6 @@ let HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 
-/** makeBoard: create in-JS board structure:
- *    board = array of rows, each row is array of cells  (board[y][x])
- */
-
 function makeBoard() {
   // set "board" to empty HEIGHT x WIDTH matrix array
   for (let i = 0; i < HEIGHT; i++) {
@@ -72,7 +68,7 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // make a div and insert into correct table cell
   let cell = document.getElementById(`${y}-${x}`);
   let piece = document.createElement("div");
   piece.classList.add("piece");
@@ -85,7 +81,7 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message]
+  //pop up alert message after last piece has fallen
   setTimeout(() => {
     alert(msg);
   }, 800);
@@ -96,6 +92,7 @@ function endGame(msg) {
 function handleClick(evt) {
   //does nothing if game is already over
   if (checkForWin()) {
+    alert("Game is over! Refresh the page for a new game!");
     return;
   }
 
@@ -121,8 +118,7 @@ function handleClick(evt) {
     }
   }
 
-  // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  // check if all cells in board are filled; if so call, call endGame as a tie
   if (
     board.every((arr) => {
       return arr.every((cell) => {
@@ -168,35 +164,37 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
-
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
+      //for every cell, take it and the three cells to its right and put them in _win function. (some may not be valid cells and beyond the dimensions of the board. For example starting with [5,5] would include [5,6],[5,7],[5,8], the last of which would not be on the board and would not pass the cells.every condition no matter what.)
       let horiz = [
         [y, x],
         [y, x + 1],
         [y, x + 2],
         [y, x + 3],
       ];
+      //for every cell, take it and the three cells below and put them in _win function.
       let vert = [
         [y, x],
         [y + 1, x],
         [y + 2, x],
         [y + 3, x],
       ];
+      //for every cell, take it and the three cells diagonally down and right and put in _win function.
       let diagDR = [
         [y, x],
         [y + 1, x + 1],
         [y + 2, x + 2],
         [y + 3, x + 3],
       ];
+      //for every cell, take it and the three cells diagonally down and right and put in _win function.
       let diagDL = [
         [y, x],
         [y + 1, x - 1],
         [y + 2, x - 2],
         [y + 3, x - 3],
       ];
-
+      //If we have four in a row in any orientation, within the board dimensions, and all belonging to the same player, checkForWin() returns true.
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
